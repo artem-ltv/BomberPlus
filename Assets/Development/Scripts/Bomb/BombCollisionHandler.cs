@@ -8,7 +8,6 @@ namespace Bomber
         [SerializeField] private Collider _collider;
 
         private Bomb _bomb;
-        private Collider _playerCollider;
         private string _floorLayerName = "Floor";
 
         private void Start()
@@ -31,8 +30,18 @@ namespace Bomber
 
             if(collision.gameObject.TryGetComponent(out Player player))
             {
-                player.TryGetComponent(out _playerCollider);
-                Physics.IgnoreCollision(_collider, _playerCollider);
+                if(player.TryGetComponent(out Collider _playerCollider))
+                {
+                    Physics.IgnoreCollision(_collider, _playerCollider);
+                }
+            }
+
+            if (collision.gameObject.TryGetComponent(out Enemy enemy))
+            {
+                if(enemy.TryGetComponent(out Collider _enemyCollider))
+                {
+                    Physics.IgnoreCollision(_collider, _enemyCollider);
+                }
             }
         }
     }

@@ -6,7 +6,7 @@ namespace Bomber
 {
     public class BombExplosion : MonoBehaviour
     {
-        [SerializeField] private GameObject _explosionObject;
+        [SerializeField] private GameObject _explosionCell;
         [SerializeField] private float _explosionLength;
         [SerializeField] private float _lifetimeExplosion;
         [SerializeField] private LayerMask _layerMaskWall;
@@ -73,7 +73,7 @@ namespace Bomber
 
             foreach (var item in lineExplosion)
             {
-                GameObject objectExplosion = Instantiate(_explosionObject, item, Quaternion.identity);
+                GameObject objectExplosion = Instantiate(_explosionCell, item, Quaternion.identity);
                 StartCoroutine(Delete(objectExplosion, _lifetimeExplosion));
             }
         }
