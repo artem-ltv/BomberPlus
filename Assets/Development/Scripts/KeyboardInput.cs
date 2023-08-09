@@ -11,12 +11,19 @@ namespace Bomber
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
 
+            TryMovePlayer(horizontal, vertical);
+        }
+
+        private void TryMovePlayer(float horizontal, float vertical)
+        {
             if (_playerMovement.CanMove)
             {
                 Vector3 direction = new Vector3(horizontal, 0f, vertical);
-                _playerMovement.Move(direction);
+                float speed = Mathf.Abs(horizontal + vertical);
 
-                if(direction != Vector3.zero)
+                _playerMovement.Move(direction, speed);
+
+                if (direction != Vector3.zero)
                 {
                     _playerMovement.Rotation(direction);
                 }

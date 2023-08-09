@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2448658127418342816}
   - component: {fileID: 8879215009430155619}
   - component: {fileID: 579044029}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 6392156535728534134}
   - component: {fileID: 6392156535728534132}
   - component: {fileID: 6392156535728534135}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 6392156536130593004}
   - component: {fileID: 6392156536130593007}
   - component: {fileID: 6392156536130593006}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Wick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -333,9 +333,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6392156535605229494}
     m_Modifications:
+    - target: {fileID: 100000, guid: 9debd342863be9747b5a48c343184a31, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 9debd342863be9747b5a48c343184a31, type: 3}
       propertyPath: m_Name
       value: WFXMR_FlameThrower Looped
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: 9debd342863be9747b5a48c343184a31, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 100002, guid: 9debd342863be9747b5a48c343184a31, type: 3}
       propertyPath: m_IsActive

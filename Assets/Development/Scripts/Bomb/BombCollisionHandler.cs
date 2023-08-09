@@ -27,22 +27,6 @@ namespace Bomber
                 _bomb.SetPosition(bombNextPosition);
                 _bomb.StartExplode();
             }
-
-            if(collision.gameObject.TryGetComponent(out Player player))
-            {
-                if(player.TryGetComponent(out Collider _playerCollider))
-                {
-                    Physics.IgnoreCollision(_collider, _playerCollider);
-                }
-            }
-
-            if (collision.gameObject.TryGetComponent(out Enemy enemy))
-            {
-                if(enemy.TryGetComponent(out Collider _enemyCollider))
-                {
-                    Physics.IgnoreCollision(_collider, _enemyCollider);
-                }
-            }
         }
     }
 }

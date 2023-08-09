@@ -9,10 +9,12 @@ namespace Bomber
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private float _moveSpeed;
         [SerializeField] private float _rotationSpeed;
+        [SerializeField] private PlayerAnimatorController _animatorController;
 
-        public void Move(Vector3 direction)
+        public void Move(Vector3 direction, float speed)
         {
             _rigidbody.velocity = Vector3.ClampMagnitude(direction, 1) * _moveSpeed;
+            _animatorController.ActivateMoving(speed);
         }
 
         public void Rotation(Vector3 direction)
