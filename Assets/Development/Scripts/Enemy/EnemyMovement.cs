@@ -6,8 +6,7 @@ namespace Bomber
     [RequireComponent(typeof(NavMeshAgent))]
     public class EnemyMovement : MonoBehaviour
     {
-        [SerializeField] private Player _player;
-
+        private Player _player;
         private NavMeshAgent _navMeshAgent;
 
         private void Start()

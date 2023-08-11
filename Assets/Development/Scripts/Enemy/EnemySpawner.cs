@@ -9,6 +9,7 @@ namespace Bomber
         [SerializeField] private Player _player;
         [SerializeField] private Transform[] _spawnPoints;
         [SerializeField] private float _delayBeforeSpawn;
+        [SerializeField] private float _timeFreezeSpawn;
 
         private Coroutine _spawnCoroutine;
 
@@ -42,6 +43,18 @@ namespace Bomber
         private void Stop()
         {
             StopCoroutine(_spawnCoroutine);
+        }
+
+        public void Freeze()
+        {
+            StartCoroutine(FreezeForTime(_timeFreezeSpawn));
+        }
+
+        private IEnumerator FreezeForTime(float timeFreeze)
+        {
+            Stop();
+            yield return new WaitForSeconds(_timeFreezeSpawn);
+            _spawnCoroutine = StartCoroutine(Spawn(_delayBeforeSpawn));
         }
     }
 }
