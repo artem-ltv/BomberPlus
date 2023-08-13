@@ -12,7 +12,7 @@ namespace Bomber
         [SerializeField] private Button _freeze;
         [SerializeField] private EnemySpawner _enemySpawner;
 
-        private float _timeRestartButton = 15f;
+        private float _timeRestartButton = 120f;
 
         private void OnEnable()
         {
