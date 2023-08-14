@@ -27,5 +27,10 @@ namespace Bomber
         {
             _isTimerOn = false;
         }
+
+        public void Resume()
+        {
+            _isTimerOn = true;
+        }
     }
 }

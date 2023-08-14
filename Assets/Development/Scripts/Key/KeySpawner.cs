@@ -10,8 +10,20 @@ namespace Bomber
         [SerializeField] private Inventory _inventory;
         [SerializeField] private List<Key> _keys;
         [SerializeField] private List<Transform> _spawnPoints;
+        [SerializeField] private RedButton _redButton;
+        [SerializeField] private Hint _hint;
 
         private int _keyNumber = 0;
+
+        private void OnEnable()
+        {
+            _redButton.Pressing += TrySpawn;
+        }
+
+        private void OnDisable()
+        {
+            _redButton.Pressing -= TrySpawn;
+        }
 
         private void Start()
         {
@@ -28,17 +40,18 @@ namespace Bomber
 
                 Key newKey = Instantiate(_keys[_keyNumber], _spawnPoints[randomIndex].position, Quaternion.identity);
                 newKey.Taking += OnTakingKey;
+                _keyNumber++;
 
                 _inventory.InitKey(newKey);
                 _spawnPoints.RemoveAt(randomIndex);
-                _keyNumber++;
             }
         }
-        
+
         private void OnTakingKey(Key key) 
         {
             key.Taking -= OnTakingKey;
             TrySpawn();
+            _hint.TryNext();
         }
     }
 }

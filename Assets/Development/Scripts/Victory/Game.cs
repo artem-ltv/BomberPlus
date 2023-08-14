@@ -11,6 +11,8 @@ namespace Bomber
         [SerializeField] private EnemySpawner _enemySpawner;
         [SerializeField] private EnemiesCollection _enemiesCollection;
         [SerializeField] private PlayerMovement _playerMovement;
+        [SerializeField] private Timer _timer;
+
 
         private void OnEnable()
         {
@@ -45,6 +47,7 @@ namespace Bomber
             _enemySpawner.Stop();
             _enemiesCollection.TryStopMove();
             _playerMovement.Stop();
+            _timer.Stop();
         }
 
         public void Continue()
@@ -52,6 +55,7 @@ namespace Bomber
             _enemySpawner.Start();
             _enemiesCollection.TryResumeMove();
             _playerMovement.Resume();
+            _timer.Resume();
         }
     }
 }

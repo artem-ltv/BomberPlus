@@ -1,12 +1,14 @@
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Events;
 
 namespace Bomber
 {
     [RequireComponent(typeof(Collider))]
     public class RedButton : MonoBehaviour
     {
-        [SerializeField] private KeySpawner _keySpawner;
+        public UnityAction Pressing;
+
         [SerializeField] private float _timeMove;
 
         private float _targetZ = -1.7f;
@@ -21,8 +23,8 @@ namespace Bomber
         {
             if(collision.gameObject.TryGetComponent(out Player player))
             {
+                Pressing?.Invoke();
                 transform.DOLocalMoveZ(_targetZ, _timeMove);
-                _keySpawner.TrySpawn();
                 _collider.enabled = false;
             }
         }
