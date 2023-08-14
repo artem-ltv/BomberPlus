@@ -10,10 +10,11 @@ namespace Bomber
         [SerializeField] private Transform[] _spawnPoints;
         [SerializeField] private float _delayBeforeSpawn;
         [SerializeField] private float _timeFreezeSpawn;
+        [SerializeField] private EnemiesCollection _collection;
 
         private Coroutine _spawnCoroutine;
 
-        private void Start()
+        public void Start()
         {
             _spawnCoroutine = StartCoroutine(Spawn(_delayBeforeSpawn));
         }
@@ -28,8 +29,9 @@ namespace Bomber
 
                 int randomIndex = Random.Range(0, _spawnPoints.Length);
                 Enemy newEnemy = Instantiate(_enemy, _spawnPoints[randomIndex].position, transform.rotation);
+                _collection.Add(newEnemy);
 
-                if(newEnemy.TryGetComponent(out EnemyMovement enemyMovement))
+                if (newEnemy.TryGetComponent(out EnemyMovement enemyMovement))
                 {
                     enemyMovement.Init(_player);
                 }
@@ -40,7 +42,7 @@ namespace Bomber
             }
         }
 
-        private void Stop()
+        public void Stop()
         {
             StopCoroutine(_spawnCoroutine);
         }

@@ -8,6 +8,7 @@ namespace Bomber
     {
         private Player _player;
         private NavMeshAgent _navMeshAgent;
+        private bool _canMove = true;
 
         private void Start()
         {
@@ -16,15 +17,30 @@ namespace Bomber
 
         private void Update()
         {
-            if(_player != null)
+            if (_canMove)
             {
-                _navMeshAgent.SetDestination(_player.transform.position);
+                if(_player != null)
+                {
+                    _navMeshAgent.SetDestination(_player.transform.position);
+                }
             }
         }
 
         public void Init(Player player)
         {
             _player = player;
+        }
+
+        public void Stop()
+        {
+            _canMove = false;
+            _navMeshAgent.enabled = false;
+        }
+
+        public void Resume()
+        {
+            _canMove = true;
+            _navMeshAgent.enabled = true;
         }
     }
 }

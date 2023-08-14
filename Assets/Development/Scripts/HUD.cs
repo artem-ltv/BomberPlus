@@ -40,6 +40,11 @@ namespace Bomber
             _hintItemDisplay.color = color;
         }
 
+        public void ShowLosePanel()
+        {
+            _losePanel.SetActive(true);
+        }
+
         private void FreezeEnemySpawn()
         {
             _enemySpawner.Freeze();

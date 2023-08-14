@@ -22,9 +22,15 @@ namespace Bomber
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * _rotationSpeed);
         }
 
-        private void Lock()
+        public void Stop()
         {
             CanMove = false;
+            _rigidbody.velocity = Vector3.zero;
+        }
+
+        public void Resume()
+        {
+            CanMove = true;
         }
     }
 }
