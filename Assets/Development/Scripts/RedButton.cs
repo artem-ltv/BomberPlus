@@ -8,7 +8,11 @@ namespace Bomber
     public class RedButton : MonoBehaviour
     {
         public UnityAction Pressing;
+        public Color Color => _color;
+        public string Name => _name;
 
+        [SerializeField] private Color _color;
+        [SerializeField] private string _name;
         [SerializeField] private float _timeMove;
 
         private float _targetZ = -1.7f;

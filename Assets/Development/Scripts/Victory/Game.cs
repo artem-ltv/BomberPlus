@@ -28,7 +28,8 @@ namespace Bomber
 
         private void Win()
         {
-            Debug.Log("Win game");
+            Stop();
+            _hud.ShowWinPanel();
         }
 
         private void Lose()

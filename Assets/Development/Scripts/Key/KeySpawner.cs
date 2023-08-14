@@ -43,6 +43,7 @@ namespace Bomber
                 _keyNumber++;
 
                 _inventory.InitKey(newKey);
+                _hint.GetHintToKey(newKey);
                 _spawnPoints.RemoveAt(randomIndex);
             }
         }
@@ -51,7 +52,6 @@ namespace Bomber
         {
             key.Taking -= OnTakingKey;
             TrySpawn();
-            _hint.TryNext();
         }
     }
 }

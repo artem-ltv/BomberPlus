@@ -6,35 +6,24 @@ namespace Bomber
     {
         [SerializeField] private HUD _hud;
         [SerializeField] private RedButton _redButton;
-        [SerializeField] private Color[] _colors; 
+        [SerializeField] private Gate _gate;
 
-        private string[] _tasks = { "Найти", "Найти", "Найти", "Найти", "Найти", "Найти", "Выйти в"};
-        private string[] _item = { "красную кнопку", "синий ключ", "зеленый ключ", "фиолетовый ключ", "красный ключ", "желтый ключ", "желтые ворота"};
-
-        private int _numberOfHint = 0;
-
-        private void OnEnable()
-        {
-            _redButton.Pressing += TryNext;
-        }
-
-        private void OnDisable()
-        {
-            _redButton.Pressing -= TryNext;
-        }
+        private string _taskFind = "Найти";
+        private string _taskExit = "Выйти в";
 
         private void Start()
         {
-            _hud.UpdateHint(_tasks[_numberOfHint], _item[_numberOfHint], _colors[_numberOfHint]);
+            _hud.UpdateHint(_taskFind, _redButton.Name, _redButton.Color);
         }
             
-        public void TryNext()
+        public void GetHintToKey(Key key)
         {
-            if((_numberOfHint <= _tasks.Length) && (_tasks.Length == _item.Length) && (_tasks.Length == _colors.Length))
-            {
-                _numberOfHint++;
-                _hud.UpdateHint(_tasks[_numberOfHint], _item[_numberOfHint], _colors[_numberOfHint]);
-            }
+            _hud.UpdateHint(_taskFind, key.Name, key.Color);
+        }
+
+        public void GetHintToGate()
+        {
+            _hud.UpdateHint(_taskExit, _gate.Name, _gate.Color);
         }
     }
 }

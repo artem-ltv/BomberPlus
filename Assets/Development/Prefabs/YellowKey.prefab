@@ -97,6 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9721054f91c45bd42b5ab46439fe5ebc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _color: {r: 1, g: 0.82745105, b: 0.20392159, a: 1}
+  _name: "\u0436\u0435\u043B\u0442\u044B\u0439 \u043A\u043B\u044E\u0447"
 --- !u!135 &3124429879371402962
 SphereCollider:
   m_ObjectHideFlags: 0
