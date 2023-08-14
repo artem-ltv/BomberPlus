@@ -7,11 +7,20 @@ namespace Bomber
     {
         public int KeysCount => _keys.Count;
 
+        [SerializeField] private Gate _gate;
+
         private List<Key> _keys = new List<Key>();
 
-        public void AddKey(Key key)
+        public void InitKey(Key key)
         {
+            key.Taking += AddKey;
+        }
+
+        private void AddKey(Key key)
+        {
+            key.Taking -= AddKey;
             _keys.Add(key);
+            _gate.TryOpen();
         }
     }
 }

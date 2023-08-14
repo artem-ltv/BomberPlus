@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,9 @@ namespace Bomber
         [SerializeField] private GameObject _winPanel;
         [SerializeField] private Button _freeze;
         [SerializeField] private EnemySpawner _enemySpawner;
+        [SerializeField] private TMP_Text _timerDisplay;
+        [SerializeField] private TMP_Text _hintTaskDisplay;
+        [SerializeField] private TMP_Text _hintItemDisplay;
 
         private float _timeRestartButton = 120f;
 
@@ -22,6 +26,18 @@ namespace Bomber
         private void OnDisable()
         {
             _freeze.onClick.RemoveListener(FreezeEnemySpawn);
+        }
+
+        public void UpdateTimerValue(float value)
+        {
+            _timerDisplay.text = value.ToString("F2");
+        }
+
+        public void UpdateHint(string task, string item, Color color)
+        {
+            _hintTaskDisplay.text = task;
+            _hintItemDisplay.text = item;
+            _hintItemDisplay.color = color;
         }
 
         private void FreezeEnemySpawn()

@@ -8,7 +8,6 @@ namespace Bomber
         public int MaxKeys { get; private set; }
 
         [SerializeField] private Inventory _inventory;
-        [SerializeField] private Gate _gate;
         [SerializeField] private List<Key> _keys;
         [SerializeField] private List<Transform> _spawnPoints;
 
@@ -28,11 +27,18 @@ namespace Bomber
                 int randomIndex = Random.Range(0, _spawnPoints.Count);
 
                 Key newKey = Instantiate(_keys[_keyNumber], _spawnPoints[randomIndex].position, Quaternion.identity);
-                newKey.Init(this, _inventory, _gate);
+                newKey.Taking += OnTakingKey;
 
+                _inventory.InitKey(newKey);
                 _spawnPoints.RemoveAt(randomIndex);
                 _keyNumber++;
             }
+        }
+        
+        private void OnTakingKey(Key key) 
+        {
+            key.Taking -= OnTakingKey;
+            TrySpawn();
         }
     }
 }

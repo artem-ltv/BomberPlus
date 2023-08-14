@@ -18,12 +18,12 @@ namespace Bomber
 
         private void Win()
         {
-
+            Debug.Log("Win game");
         }
 
         private void Lose()
         {
-
+            Debug.Log("Lose game");
         }
     }
 }
