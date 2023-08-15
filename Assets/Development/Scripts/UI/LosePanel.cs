@@ -5,15 +5,12 @@ using UnityEngine.UI;
 
 namespace Bomber
 {
-    public class LosePanel : MonoBehaviour
+    public class LosePanel : Panel
     {
         [SerializeField] private Button _ads;
-        [SerializeField] private Button _restart;
         [SerializeField] private Button _continue;
-        [SerializeField] private Button _mainMenu;
         [SerializeField] private Image _adsImage;
         [SerializeField] private float _timeForContinue;
-        [SerializeField] private Game _game;
 
         private Coroutine _filling;
         private float _startFillImageValue = 1f;
@@ -22,19 +19,17 @@ namespace Bomber
         {
             _ads.onClick.AddListener(OnClickAds);
             _continue.onClick.AddListener(OnClickContinueGame);
-            _restart.onClick.AddListener(OnClickRestartGame);
         }
 
         private void OnDisable()
         {
             _ads.onClick.RemoveListener(OnClickAds);
             _continue.onClick.RemoveListener(OnClickContinueGame);
-            _restart.onClick.RemoveListener(OnClickRestartGame);
         }
 
         private void Start()
         {
-            SetActiveButtons(false, _restart, _continue);
+            SetActiveButtons(false, Restart, _continue);
             _filling = StartCoroutine(ImageFilling(_startFillImageValue, 0f,_timeForContinue, EnableRestart));
         }
 
@@ -43,7 +38,7 @@ namespace Bomber
             StopImageFilling();
 
             SetActiveButtons(true, _continue);
-            SetActiveButtons(false, _ads, _restart);
+            SetActiveButtons(false, _ads, Restart);
         }
 
         private IEnumerator ImageFilling(float startValue, float endValue, float duration, UnityAction action)
@@ -71,22 +66,17 @@ namespace Bomber
         private void EnableRestart()
         {
             SetActiveButtons(false, _continue);
-            SetActiveButtons(true, _restart);
+            SetActiveButtons(true, Restart);
         }
 
         private void OnClickContinueGame()
         {
             SetActiveButtons(false, _continue, _ads);
-            SetActiveButtons(true, _restart);
+            SetActiveButtons(true, Restart);
 
-            _game.Continue();
+            Game.Continue();
 
             gameObject.SetActive(false);
-        }
-
-        private void OnClickRestartGame()
-        {
-            _game.Restart();
         }
 
         private void SetActiveButtons(bool isActive, params Button[] buttons)

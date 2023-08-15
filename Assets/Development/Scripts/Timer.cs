@@ -32,5 +32,10 @@ namespace Bomber
         {
             _isTimerOn = true;
         }
+
+        public float GetTime() 
+        {
+            return _startTime;
+        }
     }
 }

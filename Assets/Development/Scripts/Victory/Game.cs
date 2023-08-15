@@ -58,5 +58,10 @@ namespace Bomber
             _playerMovement.Resume();
             _timer.Resume();
         }
+
+        public void GoToMainMenu()
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 }
