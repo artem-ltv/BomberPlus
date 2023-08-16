@@ -15,22 +15,34 @@ namespace Bomber
         private Coroutine _filling;
         private float _startFillImageValue = 1f;
 
-        private void OnEnable()
-        {
-            _ads.onClick.AddListener(OnClickAds);
-            _continue.onClick.AddListener(OnClickContinueGame);
-        }
-
-        private void OnDisable()
-        {
-            _ads.onClick.RemoveListener(OnClickAds);
-            _continue.onClick.RemoveListener(OnClickContinueGame);
-        }
-
         private void Start()
         {
             SetActiveButtons(false, Restart, _continue);
             _filling = StartCoroutine(ImageFilling(_startFillImageValue, 0f,_timeForContinue, EnableRestart));
+        }
+
+        private void OnEnable()
+        {
+            AddButtonsEvents();
+        }
+
+        private void OnDisable()
+        {
+            RemoveButtonsEvents();   
+        }
+
+        protected override void AddButtonsEvents()
+        {
+            base.AddButtonsEvents();
+            _ads.onClick.AddListener(OnClickAds);
+            _continue.onClick.AddListener(OnClickContinueGame);
+        }
+
+        protected override void RemoveButtonsEvents()
+        {
+            base.RemoveButtonsEvents();
+            _ads.onClick.RemoveListener(OnClickAds);
+            _continue.onClick.RemoveListener(OnClickContinueGame);
         }
 
         public void OnClickAds()
@@ -75,8 +87,6 @@ namespace Bomber
             SetActiveButtons(true, Restart);
 
             Game.Continue();
-
-            gameObject.SetActive(false);
         }
 
         private void SetActiveButtons(bool isActive, params Button[] buttons)

@@ -5,7 +5,7 @@ namespace Bomber
 {
     public class KeySpawner : MonoBehaviour
     {
-        public int MaxKeys { get; private set; }
+        public int MaxKeys => _keys.Count;
 
         [SerializeField] private Inventory _inventory;
         [SerializeField] private List<Key> _keys;
@@ -23,11 +23,6 @@ namespace Bomber
         private void OnDisable()
         {
             _redButton.Pressing -= TrySpawn;
-        }
-
-        private void Start()
-        {
-            MaxKeys = _keys.Count;
         }
 
         public void TrySpawn()

@@ -26,18 +26,6 @@ namespace Bomber
             _player.Dying -= Lose;
         }
 
-        private void Win()
-        {
-            Stop();
-            _hud.ShowWinPanel();
-        }
-
-        private void Lose()
-        {
-            Stop();
-            _hud.ShowLosePanel();
-        }
-
         public void Restart()
         {
             SceneManager.LoadScene(1);
@@ -53,6 +41,7 @@ namespace Bomber
 
         public void Continue()
         {
+            _hud.HideAllPanels();
             _enemySpawner.Start();
             _enemiesCollection.TryResumeMove();
             _playerMovement.Resume();
@@ -62,6 +51,24 @@ namespace Bomber
         public void GoToMainMenu()
         {
             SceneManager.LoadScene(0);
+        }
+
+        public void Pause()
+        {
+            Stop();
+            _hud.ShowPausePanel(true);
+        }
+
+        private void Win()
+        {
+            Stop();
+            _hud.ShowWinPanel(true);
+        }
+
+        private void Lose()
+        {
+            Stop();
+            _hud.ShowLosePanel(true);
         }
     }
 }

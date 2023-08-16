@@ -4,7 +4,7 @@ namespace Bomber
 {
     public class KeyboardInput : MonoBehaviour
     {
-        [SerializeField] private PlayerMovement _playerMovement; 
+        [SerializeField] private PlayerMovement _playerMovement;
 
         private void FixedUpdate()
         {
