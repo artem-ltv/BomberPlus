@@ -2,6 +2,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 namespace Bomber
 {
@@ -15,8 +16,12 @@ namespace Bomber
         [SerializeField] private TMP_Text _timerDisplay;
         [SerializeField] private TMP_Text _hintTaskDisplay;
         [SerializeField] private TMP_Text _hintItemDisplay;
+        [SerializeField] private TMP_Text _healthDisplay;
+        [SerializeField] private Image _damage;
 
         private float _timeRestartButton = 120f;
+        private float _targetAlpha = 0.7f;
+        private float _timeAnimation = 0.25f;
 
         private void OnEnable()
         {
@@ -28,9 +33,9 @@ namespace Bomber
             _freeze.onClick.RemoveListener(FreezeEnemySpawn);
         }
 
-        public void UpdateTimerValue(float value)
+        public void UpdateTimer(float time)
         {
-            _timerDisplay.text = value.ToString("F2");
+            _timerDisplay.text = time.ToString("F2");
         }
 
         public void UpdateHint(string task, string item, Color color)
@@ -38,6 +43,11 @@ namespace Bomber
             _hintTaskDisplay.text = task;
             _hintItemDisplay.text = item;
             _hintItemDisplay.color = color;
+        }
+
+        public void UpdateHealth(int health)
+        {
+            _healthDisplay.text = health.ToString();
         }
 
         public void ShowLosePanel(bool isShow)
@@ -53,6 +63,11 @@ namespace Bomber
         public void ShowPausePanel(bool isShow)
         {
             _pausePanel.SetActive(isShow);
+        }
+
+        public void ShowDamageFrame()
+        {
+            _damage.DOFade(_targetAlpha, _timeAnimation).SetEase(Ease.Linear).SetLoops(2, LoopType.Yoyo);
         }
 
         public void HideAllPanels()

@@ -8,6 +8,7 @@ namespace Bomber
         public UnityAction Dying;
 
         [SerializeField] private int _health;
+        [SerializeField] private HUD _hud;
 
         public void AddDamage(int damage)
         {
@@ -15,10 +16,15 @@ namespace Bomber
             {
                 _health -= damage;
 
+                _hud.ShowDamageFrame();
+
                 if (_health <= 0)
                 {
+                    _health = 0;
                     Die();
                 }
+
+                _hud.UpdateHealth(_health);
             }
         }
 
@@ -27,9 +33,13 @@ namespace Bomber
             Dying?.Invoke();
         }
 
-        private void AddHealth(int health)
+        public void AddHealth(int health)
         {
-            _health = health;
+            if(health > 0)
+            {
+                _health += health;
+                _hud.UpdateHealth(_health);
+            }
         }
     }
 }

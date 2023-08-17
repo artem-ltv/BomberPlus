@@ -11,7 +11,7 @@ namespace Bomber
 
         private void Start()
         {
-            _hud.UpdateTimerValue(_startTime);
+            _hud.UpdateTimer(_startTime);
         }
 
         private void Update()
@@ -19,7 +19,7 @@ namespace Bomber
             if (_isTimerOn)
             {
                 _startTime += Time.deltaTime;
-                _hud.UpdateTimerValue(_startTime);
+                _hud.UpdateTimer(_startTime);
             }
         }
 

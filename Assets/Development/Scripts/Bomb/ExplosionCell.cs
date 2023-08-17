@@ -10,13 +10,12 @@ namespace Bomber
         [SerializeField] private float _delayForRemoveCollider;
 
         private Collider _collider;
-        private float _effectPostionY = 2f;
+        private int _damage = 100;
 
         private void Start()
         {
             _collider = GetComponent<Collider>();
             _explosionEffect.Play();
-            //Instantiate(_explosionEffect, new Vector3(gameObject.transform.position.x, _effectPostionY, gameObject.transform.position.z), Quaternion.identity);
             StartCoroutine(DisableCollider(_delayForRemoveCollider));
         }
 
@@ -27,8 +26,10 @@ namespace Bomber
                 enemy.Die();
             }
 
-            //if (other.gameObject.TryGetComponent(out Player player))
-            //    player.Die();
+            if (other.gameObject.TryGetComponent(out Player player))
+            {
+                player.AddDamage(_damage);
+            }
         }
 
         private IEnumerator DisableCollider(float delay)

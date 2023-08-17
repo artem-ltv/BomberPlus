@@ -11,6 +11,7 @@ namespace Bomber
         [SerializeField] private Button _continue;
         [SerializeField] private Image _adsImage;
         [SerializeField] private float _timeForContinue;
+        [SerializeField] private Player _player;
 
         private Coroutine _filling;
         private float _startFillImageValue = 1f;
@@ -86,6 +87,7 @@ namespace Bomber
             SetActiveButtons(false, _continue, _ads);
             SetActiveButtons(true, Restart);
 
+            _player.AddHealth(100);
             Game.Continue();
         }
 
