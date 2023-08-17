@@ -48,39 +48,46 @@ namespace Bomber
                 Ray ray = new Ray(_bomb.transform.position, direction);
 
                 if (Physics.Raycast(ray, out hit, (float)i, _layerMaskWall))
+                {
                     break;
+                }
 
                 else
                 {
-                    Playback(lineExplosion, direction, i);
+                    IdentifyPoint(lineExplosion, direction, i - _halfCellWidth);
                 }
             }
+
+            Explode(lineExplosion);
         }
 
-        private void Playback(List<Vector3> lineExplosion, Vector3 direction, int step)
+        private void IdentifyPoint(List<Vector3> lineExplosion, Vector3 direction, int step)
         {
             if (direction == _bomb.transform.forward)
-                AddExplosionPoint(lineExplosion, 0, (step - _halfCellWidth));
+                AddExplosionPoint(lineExplosion, 0, step);
 
             if (direction == _bomb.transform.forward * -1)
-                AddExplosionPoint(lineExplosion, 0, -(step - _halfCellWidth));
+                AddExplosionPoint(lineExplosion, 0, -step);
 
             if (direction == _bomb.transform.right)
-                AddExplosionPoint(lineExplosion, (step - _halfCellWidth), 0);
+                AddExplosionPoint(lineExplosion, step, 0);
 
             if (direction == _bomb.transform.right * -1)
-                AddExplosionPoint(lineExplosion, -(step - _halfCellWidth), 0);
-
-            foreach (var item in lineExplosion)
-            {
-                GameObject objectExplosion = Instantiate(_explosionCell, item, Quaternion.identity);
-                StartCoroutine(Delete(objectExplosion, _lifetimeExplosion));
-            }
+                AddExplosionPoint(lineExplosion, -step, 0);
         }
 
         private void AddExplosionPoint(List<Vector3> lineExplosion, float stepX, float stepZ)
         {
             lineExplosion.Add(new Vector3(_bomb.transform.position.x + stepX, _bomb.transform.position.y, _bomb.transform.position.z + stepZ));
+        }
+
+        private void Explode(List<Vector3> lineExplosion)
+        {
+            foreach (var item in lineExplosion)
+            {
+                GameObject objectExplosion = Instantiate(_explosionCell, item, Quaternion.identity);
+                StartCoroutine(Delete(objectExplosion, _lifetimeExplosion));
+            }
         }
 
         private IEnumerator Delete(GameObject objectExplode, float delay)
