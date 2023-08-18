@@ -12,6 +12,7 @@ namespace Bomber
         [SerializeField] private Image _adsImage;
         [SerializeField] private float _timeForContinue;
         [SerializeField] private Player _player;
+        [SerializeField] private AdsManager _adsManager;
 
         private Coroutine _filling;
         private float _startFillImageValue = 1f;
@@ -47,6 +48,11 @@ namespace Bomber
         }
 
         public void OnClickAds()
+        {
+            _adsManager.ShowAd();
+        }
+
+        public void OnShowAds()
         {
             StopImageFilling();
 
