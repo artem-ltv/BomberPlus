@@ -50,6 +50,7 @@ namespace Bomber
 
         public void GoToMainMenu()
         {
+            PlayerPrefs.DeleteAll();
             SceneManager.LoadScene(0);
         }
 
