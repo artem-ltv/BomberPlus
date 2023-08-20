@@ -13,7 +13,7 @@ namespace Bomber
         [SerializeField] private PlayerMovement _playerMovement;
         [SerializeField] private Timer _timer;
         [SerializeField] private BombThrowing _bombThrowing;
-
+        [SerializeField] private PlayerInput _input;
 
         private void OnEnable()
         {
@@ -40,6 +40,7 @@ namespace Bomber
             _playerMovement.Stop();
             _timer.Stop();
             _bombThrowing.SetPossible(false);
+            _input.SetAciveJoystick(false);
         }
 
         public void Continue()
@@ -51,6 +52,7 @@ namespace Bomber
             _playerMovement.Resume();
             _timer.Resume();
             _bombThrowing.SetPossible(true);
+            _input.SetAciveJoystick(true);
         }
 
         public void Pause()

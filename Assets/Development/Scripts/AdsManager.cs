@@ -14,7 +14,7 @@ namespace Bomber
         }
 
         public void OnShowAd()
-        {
+        { 
             _losePanel.EnableContinueButton();
         }
     }

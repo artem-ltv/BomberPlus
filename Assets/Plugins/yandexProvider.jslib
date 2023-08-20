@@ -153,6 +153,7 @@ mergeInto(LibraryManager.library,
 		a.setAttribute("target", "_blank");
 		a.click();
 	}
+
 });
 
 var FileIO = {
@@ -191,6 +192,10 @@ var FileIO = {
 		console.error('Has key in Local Storage error: ', e.message);
 		return 0;
 	}
+  },
+
+  GetTypePlatformDevice: function(){
+	GetTypeDevice();
   }
 };
 

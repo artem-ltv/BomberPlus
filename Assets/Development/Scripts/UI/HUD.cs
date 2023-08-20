@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System;
 
 namespace Bomber
 {
@@ -12,12 +13,14 @@ namespace Bomber
         [SerializeField] private GameObject _losePanel;
         [SerializeField] private GameObject _winPanel;
         [SerializeField] private Button _freeze;
+        [SerializeField] private Button _throwBomb;
         [SerializeField] private EnemySpawner _enemySpawner;
         [SerializeField] private TMP_Text _timerDisplay;
         [SerializeField] private TMP_Text _hintTaskDisplay;
         [SerializeField] private TMP_Text _hintItemDisplay;
         [SerializeField] private TMP_Text _healthDisplay;
         [SerializeField] private Image _damage;
+        [SerializeField] private PlayerInput _input;
 
         private float _timeRestartButton = 120f;
         private float _targetAlpha = 0.7f;
@@ -26,11 +29,13 @@ namespace Bomber
         private void OnEnable()
         {
             _freeze.onClick.AddListener(FreezeEnemySpawn);
+            _throwBomb.onClick.AddListener(OnClickThrowBomb);
         }
 
         private void OnDisable()
         {
             _freeze.onClick.RemoveListener(FreezeEnemySpawn);
+            _throwBomb.onClick.RemoveListener(OnClickThrowBomb);
         }
 
         public void UpdateTimer(float time)
@@ -81,6 +86,11 @@ namespace Bomber
         {
             _enemySpawner.Freeze();
             StartCoroutine(RestartButton(_freeze, _timeRestartButton));
+        }
+
+        private void OnClickThrowBomb()
+        {
+            _input.TryBombThrow();
         }
 
         private IEnumerator RestartButton(Button button, float time)

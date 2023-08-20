@@ -292,6 +292,7 @@
     let firstAd = true;
 
     const script = document.createElement("script");
+
     script.src = loaderUrl;
     script.onload = () => {
         createUnityInstance(canvas, config, (progress) => {
