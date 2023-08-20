@@ -5,7 +5,10 @@ namespace Bomber
 {
     public class EnemiesCollection : MonoBehaviour
     {
+        public int EnemiesCount => _enemies.Count;
+
         [SerializeField] private List<Enemy> _enemies;
+        [SerializeField] private EnemySpawner _spawner;
 
         public void Add(Enemy enemy)
         {
@@ -17,6 +20,7 @@ namespace Bomber
         {
             enemy.Dying -= Remove;
             _enemies.Remove(enemy);
+            _spawner.CheckEnemiesCount();
         }
 
         public void TryStopMove()

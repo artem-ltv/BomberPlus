@@ -52,7 +52,7 @@ namespace Bomber
             _adsManager.ShowAd();
         }
 
-        public void OnShowAds()
+        public void EnableContinueButton()
         {
             StopImageFilling();
 

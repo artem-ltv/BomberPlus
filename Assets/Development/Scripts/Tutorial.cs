@@ -11,7 +11,7 @@ namespace Bomber
         [SerializeField] private Button _further;
 
         private int _numberOfSlide = 0;
-        private string _tutorial;
+        private string _tutorial = "Tutorial";
 
         private void Awake()
         {

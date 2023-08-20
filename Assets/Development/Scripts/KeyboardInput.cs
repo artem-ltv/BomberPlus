@@ -5,6 +5,7 @@ namespace Bomber
     public class KeyboardInput : MonoBehaviour
     {
         [SerializeField] private PlayerMovement _playerMovement;
+        [SerializeField] private BombThrowing _bombThrowing;
 
         private void FixedUpdate()
         {
@@ -12,6 +13,14 @@ namespace Bomber
             float vertical = Input.GetAxis("Vertical");
 
             TryMovePlayer(horizontal, vertical);
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                TryBombThrow();
+            }
         }
 
         private void TryMovePlayer(float horizontal, float vertical)
@@ -27,6 +36,14 @@ namespace Bomber
                 {
                     _playerMovement.Rotation(direction);
                 }
+            }
+        }
+
+        private void TryBombThrow()
+        {
+            if (_bombThrowing.CanThrow)
+            {
+                _bombThrowing.Throw();
             }
         }
     }

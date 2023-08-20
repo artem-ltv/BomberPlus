@@ -12,6 +12,7 @@ namespace Bomber
         [SerializeField] private EnemiesCollection _enemiesCollection;
         [SerializeField] private PlayerMovement _playerMovement;
         [SerializeField] private Timer _timer;
+        [SerializeField] private BombThrowing _bombThrowing;
 
 
         private void OnEnable()
@@ -28,7 +29,8 @@ namespace Bomber
 
         public void Restart()
         {
-            SceneManager.LoadScene(1);
+            Time.timeScale = 1f;
+            SceneManager.LoadScene(0);
         }
 
         public void Stop()
@@ -37,26 +39,24 @@ namespace Bomber
             _enemiesCollection.TryStopMove();
             _playerMovement.Stop();
             _timer.Stop();
+            _bombThrowing.SetPossible(false);
         }
 
         public void Continue()
         {
+            Time.timeScale = 1f;
             _hud.HideAllPanels();
             _enemySpawner.Start();
             _enemiesCollection.TryResumeMove();
             _playerMovement.Resume();
             _timer.Resume();
-        }
-
-        public void GoToMainMenu()
-        {
-            PlayerPrefs.DeleteAll();
-            SceneManager.LoadScene(0);
+            _bombThrowing.SetPossible(true);
         }
 
         public void Pause()
         {
             Stop();
+            Time.timeScale = 0f;
             _hud.ShowPausePanel(true);
         }
 
@@ -70,6 +70,11 @@ namespace Bomber
         {
             Stop();
             _hud.ShowLosePanel(true);
+        }
+
+        private void OnApplicationQuit()
+        {
+            PlayerPrefs.DeleteAll();
         }
     }
 }

@@ -10,6 +10,7 @@ namespace Bomber
         [SerializeField] private Inventory _inventory;
         [SerializeField] private List<Key> _keys;
         [SerializeField] private List<Transform> _spawnPoints;
+        [SerializeField] private EnemySpawner _enemySpawner;
         [SerializeField] private RedButton _redButton;
         [SerializeField] private Hint _hint;
 
@@ -39,6 +40,7 @@ namespace Bomber
 
                 _inventory.InitKey(newKey);
                 _hint.GetHintToKey(newKey);
+                _enemySpawner.Init(newKey);
                 _spawnPoints.RemoveAt(randomIndex);
             }
         }

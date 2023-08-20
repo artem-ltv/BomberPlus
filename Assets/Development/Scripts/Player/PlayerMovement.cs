@@ -4,12 +4,14 @@ namespace Bomber
 {
     public class PlayerMovement : MonoBehaviour
     {
-        public bool CanMove { get; private set; } = true;
+        public bool CanMove => _canMove;
 
         [SerializeField] private Rigidbody _rigidbody;
         [SerializeField] private float _moveSpeed;
         [SerializeField] private float _rotationSpeed;
         [SerializeField] private PlayerAnimatorController _animatorController;
+
+        private bool _canMove = true;
 
         public void Move(Vector3 direction, float speed)
         {
@@ -24,13 +26,13 @@ namespace Bomber
 
         public void Stop()
         {
-            CanMove = false;
+            _canMove = false;
             _rigidbody.velocity = Vector3.zero;
         }
 
         public void Resume()
         {
-            CanMove = true;
+            _canMove = true;
         }
     }
 }
