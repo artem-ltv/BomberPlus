@@ -8,17 +8,20 @@ namespace Bomber
         public int KeysCount => _keys.Count;
 
         [SerializeField] private Gate _gate;
+        [SerializeField] private Audio _audioSystem;
 
         private List<Key> _keys = new List<Key>();
 
         public void InitKey(Key key)
         {
-            key.Taking += AddKey;
+            key.Taking += OnTakingKey;
         }
 
-        private void AddKey(Key key)
+        private void OnTakingKey(Key key)
         {
-            key.Taking -= AddKey;
+            key.Taking -= OnTakingKey;
+
+            _audioSystem.PlayTakingSound();
             _keys.Add(key);
             _gate.TryOpen();
         }

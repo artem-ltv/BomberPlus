@@ -21,6 +21,7 @@ namespace Bomber
         private void Start()
         {
             _bestTimeDisplay.text = $": {_timer.GetTime():F2}";
+            AudioSystem.PlayWinGameSound();
         }
     }
 }

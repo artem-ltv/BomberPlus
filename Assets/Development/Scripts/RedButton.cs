@@ -14,6 +14,7 @@ namespace Bomber
         [SerializeField] private Color _color;
         [SerializeField] private string _name;
         [SerializeField] private float _timeMove;
+        [SerializeField] private Audio _audioSystem;
 
         private float _targetZ = -1.7f;
         private Collider _collider;
@@ -27,6 +28,7 @@ namespace Bomber
         {
             if(collision.gameObject.TryGetComponent(out Player player))
             {
+                _audioSystem.PlayTakingSound();
                 Pressing?.Invoke();
                 transform.DOLocalMoveZ(_targetZ, _timeMove);
                 _collider.enabled = false;

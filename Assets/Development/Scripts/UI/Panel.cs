@@ -7,9 +7,11 @@ namespace Bomber
     {
         [SerializeField] protected Button Restart;
         [SerializeField] protected Game Game;
+        [SerializeField] protected Audio AudioSystem;
 
         private void OnClickRestartGame()
         {
+            AudioSystem.PlayButtonSound();
             Game.Restart();
         }
 

@@ -9,10 +9,13 @@ namespace Bomber
 
         [SerializeField] private int _health;
         [SerializeField] private HUD _hud;
+        [SerializeField] private Audio _audioSystem;
 
         public void AddDamage(int damage)
         {
-            if(damage > 0)
+            _audioSystem.PlayDamageSound();
+
+            if (damage > 0)
             {
                 _health -= damage;
 

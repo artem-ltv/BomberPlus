@@ -21,6 +21,7 @@ namespace Bomber
 
         private void OnClickContinueGame()
         {
+            AudioSystem.PlayButtonSound();
             Game.Continue();
         }
     }

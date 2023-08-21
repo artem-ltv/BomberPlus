@@ -1,5 +1,4 @@
 using System.Runtime.InteropServices;
-using TMPro;
 using UnityEngine;
 
 namespace Bomber
@@ -16,7 +15,6 @@ namespace Bomber
         [SerializeField] private PlayerMovement _playerMovement;
         [SerializeField] private BombThrowing _bombThrowing;
         [SerializeField] private Joystick _joystick;
-        [SerializeField] private TMP_Text _text;
 
         [SerializeField] private DeviceTypeWebGL CurrentDeviceType;
 
@@ -31,16 +29,7 @@ namespace Bomber
 
         private void Start()
         {
-            //GetTypePlatformDevice();
-
-            if(CurrentDeviceType == DeviceTypeWebGL.Desktop)
-            {
-                IdentifyDeviceType(_desktopType);
-            }
-            else
-            {
-                IdentifyDeviceType(_mobileType);
-            }
+            GetTypePlatformDevice();
         }
 
         private void FixedUpdate()
@@ -76,13 +65,11 @@ namespace Bomber
             if (typeDevice == _desktopType)
             {
                 SetControllerForDevice(DeviceTypeWebGL.Desktop, true, false);
-                _text.text = typeDevice;
             }
 
             if (typeDevice == _mobileType || typeDevice == _tabletType)
             {
                 SetControllerForDevice(DeviceTypeWebGL.Mobile, false, true);
-                _text.text = typeDevice;
             }
         }
 

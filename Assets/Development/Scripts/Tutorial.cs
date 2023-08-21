@@ -9,6 +9,7 @@ namespace Bomber
         [SerializeField] private Timer _timer;
         [SerializeField] private GameObject[] _slides;
         [SerializeField] private Button _further;
+        [SerializeField] private Audio _audioSystem;
 
         private int _numberOfSlide = 0;
         private string _tutorial = "Tutorial";
@@ -51,7 +52,8 @@ namespace Bomber
 
         private void OnClickButton()
         {
-            if(_numberOfSlide < _slides.Length-1)
+            _audioSystem.PlayButtonSound();
+            if (_numberOfSlide < _slides.Length-1)
             {
                 _numberOfSlide++;
                 SwitchSlide(_numberOfSlide);

@@ -26,6 +26,7 @@ namespace Bomber
         private void OnEnable()
         {
             AddButtonsEvents();
+            AudioSystem.PlayLoseGameSound();
         }
 
         private void OnDisable()
@@ -49,6 +50,7 @@ namespace Bomber
 
         public void OnClickAds()
         {
+            AudioSystem.PlayButtonSound();
             _adsManager.ShowAd();
         }
 
@@ -92,6 +94,7 @@ namespace Bomber
         {
             SetActiveButtons(false, _continue, _ads);
             SetActiveButtons(true, Restart);
+            AudioSystem.PlayButtonSound();
 
             _player.AddHealth(100);
             Game.Continue();

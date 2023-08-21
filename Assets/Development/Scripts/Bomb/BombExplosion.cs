@@ -10,6 +10,7 @@ namespace Bomber
         [SerializeField] private float _explosionLength;
         [SerializeField] private float _lifetimeExplosion;
         [SerializeField] private LayerMask _layerMaskWall;
+        [SerializeField] private Audio _audioSystem;
 
         private List<Vector3> CellsForExplodeForward;
         private List<Vector3> CellsForExplodeBackward;
@@ -36,6 +37,8 @@ namespace Bomber
             Calculate(CellsForExplodeBackward, _bomb.transform.forward * -1);
             Calculate(CellsForExplodeRight, _bomb.transform.right);
             Calculate(CellsForExplodeLeft, _bomb.transform.right * -1);
+
+            _audioSystem.PlayExplosiobSound();
         }
 
         private void Calculate(List<Vector3> lineExplosion, Vector3 direction)
