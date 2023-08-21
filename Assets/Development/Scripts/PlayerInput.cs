@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Bomber
 {
-    public enum DeviceTypeWeb
+    public enum DeviceTypeWebGL
     {
         Desktop,
         Mobile,
@@ -18,41 +18,39 @@ namespace Bomber
         [SerializeField] private Joystick _joystick;
         [SerializeField] private TMP_Text _text;
 
+        [SerializeField] private DeviceTypeWebGL CurrentDeviceType;
+
         [DllImport("__Internal")]
         private static extern void GetTypePlatformDevice();
 
-        public DeviceTypeWeb CurrentDeviceType { get; private set; } = DeviceTypeWeb.Mobile;
+        private string _mobileType = "mobile";
+        private string _desktopType = "desktop";
+        private string _tabletType = "tablet";
+
+        private bool _isDesktop = false;
 
         private void Start()
         {
-            GetTypePlatformDevice();
-        }
+            //GetTypePlatformDevice();
 
-        public void IdentifyDeviceType(string typeDevice)
-        {
-            if(typeDevice == "desktop")
+            if(CurrentDeviceType == DeviceTypeWebGL.Desktop)
             {
-                CurrentDeviceType = DeviceTypeWeb.Desktop;
-                _text.text = typeDevice;
+                IdentifyDeviceType(_desktopType);
             }
-
-            if(typeDevice == "mobile")
+            else
             {
-                CurrentDeviceType = DeviceTypeWeb.Mobile;
-                _text.text = typeDevice;
+                IdentifyDeviceType(_mobileType);
             }
         }
 
         private void FixedUpdate()
         {  
-            if(CurrentDeviceType == DeviceTypeWeb.Desktop)
+            if(_isDesktop)
             {
                 float horizontal = Input.GetAxis("Horizontal");
                 float vertical = Input.GetAxis("Vertical");
 
                 TryMovePlayer(horizontal, vertical);
-
-                SetAciveJoystick(false);
             }
 
             else
@@ -73,6 +71,37 @@ namespace Bomber
             }
         }
 
+        public void IdentifyDeviceType(string typeDevice)
+        {
+            if (typeDevice == _desktopType)
+            {
+                SetControllerForDevice(DeviceTypeWebGL.Desktop, true, false);
+                _text.text = typeDevice;
+            }
+
+            if (typeDevice == _mobileType || typeDevice == _tabletType)
+            {
+                SetControllerForDevice(DeviceTypeWebGL.Mobile, false, true);
+                _text.text = typeDevice;
+            }
+        }
+
+        public void TryBombThrow()
+        {
+            if (_bombThrowing.CanThrow)
+            {
+                _bombThrowing.Throw();
+            }
+        }
+
+        public void SetAciveJoystick(bool isActive)
+        {
+            if (_isDesktop == false)
+            {
+                _joystick.gameObject.SetActive(isActive);
+            }
+        }
+
         private void TryMovePlayer(float horizontal, float vertical)
         {
             if (_playerMovement.CanMove)
@@ -89,17 +118,11 @@ namespace Bomber
             }
         }
 
-        public void TryBombThrow()
+        private void SetControllerForDevice(DeviceTypeWebGL deviceType, bool isDesktop, bool isJoystickActive)
         {
-            if (_bombThrowing.CanThrow)
-            {
-                _bombThrowing.Throw();
-            }
-        }
-
-        public void SetAciveJoystick(bool isActive)
-        {
-            _joystick.gameObject.SetActive(isActive);
+            CurrentDeviceType = deviceType;
+            _joystick.gameObject.SetActive(isJoystickActive);
+            _isDesktop = isDesktop;
         }
     }
 }
