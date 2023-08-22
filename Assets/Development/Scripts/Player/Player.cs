@@ -10,6 +10,21 @@ namespace Bomber
         [SerializeField] private int _health;
         [SerializeField] private HUD _hud;
         [SerializeField] private Audio _audioSystem;
+        [SerializeField] private CapsuleCollider _collider;
+        [SerializeField] private PlayerInput _input;
+
+        private float _colliderRadiusForMobile = 0.28f;
+        private float _colliderRadiusForDesktop = 0.35f;
+
+        private void OnEnable()
+        {
+            _input.IdentifingDeviceType += ChangeColliderRadius;
+        }
+
+        private void OnDisable()
+        {
+            _input.IdentifingDeviceType -= ChangeColliderRadius;
+        }
 
         public void AddDamage(int damage)
         {
@@ -42,6 +57,18 @@ namespace Bomber
             {
                 _health += health;
                 _hud.UpdateHealth(_health);
+            }
+        }
+
+        private void ChangeColliderRadius(DeviceTypeWebGL deviceTypeWebGL)
+        {
+            if (deviceTypeWebGL == DeviceTypeWebGL.Desktop)
+            {
+                _collider.radius = _colliderRadiusForDesktop;
+            }
+            else
+            {
+                _collider.radius = _colliderRadiusForMobile;
             }
         }
     }

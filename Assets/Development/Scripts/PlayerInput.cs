@@ -1,5 +1,6 @@
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Bomber
 {
@@ -12,10 +13,11 @@ namespace Bomber
 
     public class PlayerInput : MonoBehaviour
     {
+        public UnityAction<DeviceTypeWebGL> IdentifingDeviceType;
+
         [SerializeField] private PlayerMovement _playerMovement;
         [SerializeField] private BombThrowing _bombThrowing;
         [SerializeField] private Joystick _joystick;
-
         [SerializeField] private DeviceTypeWebGL CurrentDeviceType;
 
         [DllImport("__Internal")]
@@ -29,7 +31,16 @@ namespace Bomber
 
         private void Start()
         {
-            GetTypePlatformDevice();
+            //GetTypePlatformDevice();
+
+            if (CurrentDeviceType == DeviceTypeWebGL.Desktop)
+            {
+                IdentifyDeviceType(_desktopType);
+            }
+            else
+            {
+                IdentifyDeviceType(_mobileType);
+            }
         }
 
         private void FixedUpdate()
@@ -46,7 +57,11 @@ namespace Bomber
             {
                 if (_joystick != null)
                 {
-                    TryMovePlayer(_joystick.Horizontal, _joystick.Vertical);
+                    float horizontal = _joystick.Horizontal;
+                    float vertical = _joystick.Vertical;
+
+                    Vector2 direction = new Vector2(horizontal, vertical).normalized;
+                    TryMovePlayer(direction.x, direction.y);
                 }
             }
             
@@ -110,6 +125,8 @@ namespace Bomber
             CurrentDeviceType = deviceType;
             _joystick.gameObject.SetActive(isJoystickActive);
             _isDesktop = isDesktop;
+
+            IdentifingDeviceType?.Invoke(CurrentDeviceType);
         }
     }
 }

@@ -10,7 +10,7 @@ namespace Bomber
         [SerializeField] private float _moveSpeed;
         [SerializeField] private float _rotationSpeed;
         [SerializeField] private PlayerAnimatorController _animatorController;
-
+        
         private bool _canMove = true;
 
         public void Move(Vector3 direction, float speed)
