@@ -18,7 +18,8 @@ namespace Bomber
         [SerializeField] private PlayerMovement _playerMovement;
         [SerializeField] private BombThrowing _bombThrowing;
         [SerializeField] private Joystick _joystick;
-        [SerializeField] private DeviceTypeWebGL CurrentDeviceType;
+        
+        private DeviceTypeWebGL CurrentDeviceType = DeviceTypeWebGL.Desktop;
 
         [DllImport("__Internal")]
         private static extern void GetTypePlatformDevice();
