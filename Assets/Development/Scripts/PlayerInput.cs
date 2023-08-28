@@ -18,8 +18,7 @@ namespace Bomber
         [SerializeField] private PlayerMovement _playerMovement;
         [SerializeField] private BombThrowing _bombThrowing;
         [SerializeField] private Joystick _joystick;
-        
-        private DeviceTypeWebGL CurrentDeviceType = DeviceTypeWebGL.Desktop;
+        [SerializeField] private DeviceTypeWebGL CurrentDeviceType = DeviceTypeWebGL.Mobile;
 
         [DllImport("__Internal")]
         private static extern void GetTypePlatformDevice();
@@ -32,16 +31,16 @@ namespace Bomber
 
         private void Start()
         {
-            //GetTypePlatformDevice();
+            GetTypePlatformDevice();
 
-            if (CurrentDeviceType == DeviceTypeWebGL.Desktop)
-            {
-                IdentifyDeviceType(_desktopType);
-            }
-            else
-            {
-                IdentifyDeviceType(_mobileType);
-            }
+            //if (CurrentDeviceType == DeviceTypeWebGL.Desktop)
+            //{
+            //    IdentifyDeviceType(_desktopType);
+            //}
+            //else
+            //{
+            //    IdentifyDeviceType(_mobileType);
+            //}
         }
 
         private void FixedUpdate()
